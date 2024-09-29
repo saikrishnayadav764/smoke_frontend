@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MuiAlert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress'; 
 
 function App() {
   const [name, setName] = useState('');
@@ -36,7 +37,8 @@ function App() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState(null);
   const [zipError, setZipError] = useState('');
-
+  const [loading, setLoading] = useState(false); 
+  const [deleting, setDeleting] = useState(false); 
   const handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -51,6 +53,7 @@ function App() {
 
   const handleConfirmDelete = async () => {
     if (userIdToDelete) {
+      setDeleting(true); 
       try {
         await axios.delete(`https://smokeb1-svj8hhvt.b4a.run/user/${userIdToDelete}`);
         setSnackbarMessage('User deleted successfully!');
@@ -62,15 +65,16 @@ function App() {
         setSnackbarSeverity('error');
         setSnackbarOpen(true);
         console.error('Error deleting user:', error);
+      } finally {
+        setDeleting(false); 
+        handleDialogClose();
       }
     }
-    handleDialogClose();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-
     if (!/^\d{6}$/.test(zip)) {
       setZipError('Invalid PIN code. It must be a 6-digit number.');
       return; 
@@ -78,6 +82,7 @@ function App() {
       setZipError(''); 
     }
 
+    setLoading(true); 
     try {
       const response = await axios.post('https://smokeb1-svj8hhvt.b4a.run/register', {
         name,
@@ -97,6 +102,8 @@ function App() {
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
       console.error('Error registering user:', error);
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -195,8 +202,14 @@ function App() {
               />
             </Grid>
           </Grid>
-          <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
-            Register
+          <Button 
+            type="submit" 
+            variant="contained" 
+            color="primary" 
+            style={{ marginTop: '20px' }} 
+            disabled={loading} 
+          >
+            {loading ? <CircularProgress size={24} /> : 'Register'}
           </Button>
         </form>
       </Paper>
@@ -211,8 +224,12 @@ function App() {
                 primary={`${user.name} (${user.email})`}
                 secondary={`Address: ${user.address ? `${user.address.street}, ${user.address.city}, ${user.address.state}, ${user.address.zip}` : 'No address'}`}
               />
-              <IconButton onClick={() => confirmDelete(user.id)} color="secondary">
-                <DeleteIcon />
+              <IconButton 
+                onClick={() => confirmDelete(user.id)} 
+                color="secondary"
+                disabled={deleting} 
+              >
+                {deleting ? <CircularProgress size={24} /> : <DeleteIcon />}
               </IconButton>
             </ListItem>
             <Divider />
@@ -242,8 +259,8 @@ function App() {
           <Button onClick={handleDialogClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleConfirmDelete} color="secondary">
-            Delete
+          <Button onClick={handleConfirmDelete} color="secondary" disabled={deleting}>
+            {deleting ? <CircularProgress size={24} /> : 'Delete'}
           </Button>
         </DialogActions>
       </Dialog>
