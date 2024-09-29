@@ -8,11 +8,11 @@ You can access the live application at [User Registration App](https://smoke-fro
 
 ## Backend API
 
-The backend for this application is hosted at [Smoke API](https://smokeb1-svj8hhvt.b4a.run/).:
+The backend for this application is hosted at [Smoke API](https://smokeb1-svj8hhvt.b4a.run/).
 
 ## Backend API Repository
 
-The backend API code for this application is there at [Smoke API](https://smokeb1-svj8hhvt.b4a.run/). Below are the available endpoints:
+The backend API code for this application is there at [Smoke API](https://github.com/saikrishnayadav764/smoke_backend). Below are the available endpoints:
 
 ### Endpoints
 
