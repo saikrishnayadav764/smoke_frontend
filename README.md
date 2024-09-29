@@ -72,8 +72,3 @@ To run this project locally, follow these steps:
    ```
 
 4. **Visit**: Open your browser and go to `http://localhost:3000`.
-
-
----
-
-Feel free to modify any parts to better fit your needs!
