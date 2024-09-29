@@ -12,7 +12,7 @@ The backend for this application is hosted at [Smoke API](https://smokeb1-svj8hh
 
 ## Backend API Repository
 
-The backend API code for this application is there at [Smoke API](https://github.com/saikrishnayadav764/smoke_backend). Below are the available endpoints:
+The backend API code for this application is there at [Smoke API Code](https://github.com/saikrishnayadav764/smoke_backend). Below are the available endpoints:
 
 ### Endpoints
 
