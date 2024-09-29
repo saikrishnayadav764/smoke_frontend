@@ -1,7 +1,3 @@
-Here's a README file that you can use for your project. It includes information about the project, how to set it up, and the relevant links.
-
----
-
 # User Registration App
 
 This is a simple user registration application built using React and Material-UI for the frontend, and it communicates with a RESTful backend API. The app allows users to register their details and view a list of registered users. It also provides the functionality to delete users.
